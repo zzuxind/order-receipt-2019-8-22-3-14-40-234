@@ -4,6 +4,8 @@ public class LineItem {
     private String description;
     private double price;
     private int quantity;
+    static final double Tax = .10;
+    
 
     public LineItem(String description, double price, int quantity) {
         super();
@@ -27,4 +29,8 @@ public class LineItem {
     double totalAmount() {
         return price * quantity;
     }
+    double salesTax() {
+    	return totalAmount() * Tax;
+    }
+
 }

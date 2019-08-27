@@ -8,7 +8,7 @@ package org.katas.refactoring;
  */
 public class OrderReceipt {
     private Order o;
-    static final double Tax = .10;
+    
 
     public OrderReceipt(Order o) {
         this.o = o;
@@ -18,6 +18,9 @@ public class OrderReceipt {
         StringBuilder output = new StringBuilder();
         printHeaders(output);
         printItems(output);
+        double totSalesTx=calculateTotalSalesTax(o);
+        double tot=calculateTotal(o);
+        printFooter(output, totSalesTx, tot);
         return output.toString();
     }
 
@@ -28,11 +31,7 @@ public class OrderReceipt {
 	}
 	
 	public void printItems(StringBuilder output) {
-		double totSalesTx = 0d;
-        double tot = 0d;
-        
-        
-        
+         
         for (LineItem lineItem : o.getLineItems()) {
             output.append(lineItem.getDescription())
             .append('\t')
@@ -43,16 +42,25 @@ public class OrderReceipt {
             .append(lineItem.totalAmount())
             .append('\n');
 
-            // calculate sales tax @ rate of 10%
-            
-			double salesTax = lineItem.totalAmount() * Tax;
-            totSalesTx += salesTax;
-
-            // calculate total amount of lineItem = price * quantity + 10 % sales tax
-            tot += lineItem.totalAmount() + salesTax;
         }
 
-        printFooter(output, totSalesTx, tot);
+}
+	
+	public double calculateTotalSalesTax(Order o) {
+		double totSalesTx = 0d;
+		for(LineItem lineItem:o.getLineItems()) {
+			totSalesTx+=lineItem.salesTax();
+		}
+		return totSalesTx;
+	}
+	
+	public double calculateTotal(Order o) {
+		double tot = 0d;
+		for(LineItem lineItem:o.getLineItems()) {
+			tot+=lineItem.totalAmount();
+		}
+		tot+=calculateTotalSalesTax(o);
+		return tot;
 	}
 
 	public void printFooter(StringBuilder output, double totSalesTx, double tot) {

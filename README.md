@@ -14,4 +14,6 @@ li->ItemList
 
 4.OrderReceipt中output重复，可以删去多余的output
 
-5.OrderReceipt中的魔法数字应被消除
+5.OrderReceipt中的魔法数字应被消除  
+
+6.OrderReceipt中包含长方法，应该抽取出来
