@@ -1,27 +1,30 @@
 package org.katas.refactoring;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Order {
-    String nm;
-    String addr;
-    List<LineItem> li;
+    private String customerName;
+    private String address;
+    private List<LineItem> ItemList;
 
-    public Order(String nm, String addr, List<LineItem> li) {
-        this.nm = nm;
-        this.addr = addr;
-        this.li = li;
+    public Order(String customerName, String address, List<LineItem> ItemList) {
+        this.customerName = customerName;
+        this.address = address;
+        this.ItemList = ItemList;
     }
 
     public String getCustomerName() {
-        return nm;
+        return customerName;
     }
 
     public String getCustomerAddress() {
-        return addr;
+        return address;
     }
 
     public List<LineItem> getLineItems() {
-        return li;
+    	List<LineItem> returnLineItems=new ArrayList<LineItem>();
+    	returnLineItems.addAll(ItemList);
+        return returnLineItems;
     }
 }
